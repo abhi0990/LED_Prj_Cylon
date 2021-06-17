@@ -5,6 +5,7 @@
       <button class="button" @click="configureRobot">Configure LED</button>
       <button class="button" @click="startLED">Start LED</button>
       <button class="button" @click="stopLED">Stop LED</button>
+      <button class="button" @click="toggleLED">Toggle LED</button>
     </div>
   </div>
 </template>
@@ -26,6 +27,9 @@ export default {
     },
     stopLED() {
       store.dispatch("stopLED");
+    },
+    toggleLED() {
+      store.dispatch("toggleLED");
     },
   },
 };

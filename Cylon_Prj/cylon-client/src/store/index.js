@@ -42,6 +42,15 @@ export default new Vuex.Store({
         console.log(error);
       }
     },
+    toggleLED: async () => {
+      try {
+        const res = await axios.get("http://localhost:4000/toggle");
+        console.log(res);
+      } catch (error) {
+        // handle error
+        console.log(error);
+      }
+    },
   },
   modules: {},
 });
