@@ -2,10 +2,18 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <div class="container">
-      <button class="button" @click="configureRobot">Configure LED</button>
-      <button class="button" @click="startLED">Start LED</button>
-      <button class="button" @click="stopLED">Stop LED</button>
-      <button class="button" @click="toggleLED">Toggle LED</button>
+      <button class="button" v-if="!showButtonStatus" @click="configureRobot">
+        Configure LED
+      </button>
+      <button class="button" v-if="showButtonStatus" @click="startLED">
+        Start LED
+      </button>
+      <button class="button" v-if="showButtonStatus" @click="stopLED">
+        Stop LED
+      </button>
+      <button class="button" v-if="showButtonStatus" @click="toggleLED">
+        Toggle LED
+      </button>
     </div>
   </div>
 </template>
@@ -17,9 +25,13 @@ export default {
   props: {
     msg: String,
   },
+  computed: {
+    showButtonStatus() {
+      return store.getters.showButtonStatus;
+    },
+  },
   methods: {
     configureRobot() {
-      console.log("called robot");
       store.dispatch("configureRobot");
     },
     startLED() {

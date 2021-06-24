@@ -7,7 +7,7 @@ exports.configureRobot = async (req, res, next) => {
     console.log("Req", req.body);
     // robot = cylon.robot(req.body).start();
     console.log("Robot configuration done..!!!");
-    res.send({ statue: "Success", data: "Robot configuration done..!!!" });
+    res.send({ statue: "Success", data: {status: "success", msg:"Robot configuration done..!!!" }});
   } catch {
     next(e);
   }

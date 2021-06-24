@@ -5,12 +5,22 @@ import axios from "axios";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
+  state: {
+    showButton: false,
+  },
+  mutations: {
+    updateButtonStatus: (state, status) => {
+      state.showButton = status;
+    },
+  },
+  getters: {
+    showButtonStatus: (state) => state.showButton,
+  },
   actions: {
-    configureRobot: async () => {
+    configureRobot: async ({ commit }) => {
       try {
         console.log("called action");
+        commit("updateButtonStatus", false);
         const res = await axios.post("http://localhost:4000/configureRobot", {
           connections: {
             arduino: { adaptor: "firmata", port: "/devttyACMB" },
@@ -19,8 +29,12 @@ export default new Vuex.Store({
             led: { driver: "led", pin: 13 },
           },
         });
-        console.log(res);
+        console.log(res.data.data.status);
+        if (res.data.data.status === "success") {
+          commit("updateButtonStatus", true);
+        }
       } catch (error) {
+        commit("updateButtonStatus", false);
         console.log(error);
       }
     },
